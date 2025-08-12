@@ -2,7 +2,7 @@ import streamlit as st
 import os
 import time
 import requests
-# from docx import Document
+from docx import Document
 from groq import Groq
 import pandas as pd
 import base64
