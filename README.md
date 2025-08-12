@@ -34,7 +34,7 @@ A Python application that generates math assessment questions using the Groq AI 
 
 1. **Run the application**:
    ```bash
-   streamlit run math_question_generator.py
+   streamlit run high_score_generator.py
    ```
 
 2. **Follow the interactive prompts**:
