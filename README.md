@@ -119,11 +119,11 @@ plusmarks: 1
 ## File Structure
 
 ```
-High Score/
-├── math_question_generator.py    # Main application file
-├── requirements.txt              # Python dependencies
-├── README.md                     # This file
-└── math_assessment_questions_*.docx  # Generated output files
+Folder/
+├── math_question_generator.py    
+├── requirements.txt              
+├── README.md                     
+└── math_assessment_questions_*.docx  
 ```
 
 ## Configuration
