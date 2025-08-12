@@ -243,18 +243,9 @@ def main():
             )
             
             if uploaded_file is not None:
-                try:
-                    df = pd.read_excel(uploaded_file)
-                    if len(df.columns) >= 3:
-                        st.success(f"✅ File uploaded successfully! Found {len(df)} curriculum paths.")
-                        st.dataframe(df.head(), use_container_width=True)
-                        curriculum_input = df
-                    else:
-                        st.error("❌ Excel file must have at least 3 columns: Subject, Unit, Topic")
-                        curriculum_input = None
-                except Exception as e:
-                    st.error(f"❌ Error reading Excel file: {e}")
-                    curriculum_input = None
+                st.warning("⚠️ Excel import is temporarily disabled. Please use 'Manual Input' method instead.")
+                st.info("💡 To fix this: Make sure 'openpyxl' is properly installed in your Streamlit Cloud environment.")
+                curriculum_input = None
             else:
                 curriculum_input = None
         
