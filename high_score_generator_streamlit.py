@@ -2,8 +2,8 @@ import streamlit as st
 import os
 import time
 import requests
-from docx import Document
-from groq import Groq
+# from docx import Document  # Temporarily disabled for Streamlit Cloud deployment
+# from groq import Groq  # Temporarily disabled for Streamlit Cloud deployment
 import pandas as pd
 import base64
 from datetime import datetime
@@ -356,44 +356,9 @@ def parse_curriculum_input(curriculum_input):
 
 def generate_questions(base_q1, base_q2, curriculum_input, difficulty, api_key):
     """Generate questions using Groq API"""
-    try:
-        # Parse curriculum paths
-        curriculum_paths = parse_curriculum_input(curriculum_input)
-        
-        if not curriculum_paths:
-            st.error("❌ No valid curriculum paths found")
-            return
-        
-        # Set API key
-        os.environ["GROQ_API_KEY"] = api_key
-        groq_client = Groq(api_key=api_key)
-        
-        st.session_state.questions_generated = []
-        
-        # Generate questions for each topic
-        for path in curriculum_paths:
-            with st.spinner(f"Generating questions for: {path['topic']}"):
-                questions = generate_questions_for_topic(
-                    groq_client, base_q1, base_q2, path, difficulty
-                )
-                
-                if questions:
-                    st.session_state.questions_generated.append({
-                        'subject': path['subject'],
-                        'unit': path['unit'],
-                        'topic': path['topic'],
-                        'difficulty': difficulty,
-                        'content': questions
-                    })
-                    st.success(f"✅ Generated 2 questions for: {path['topic']}")
-                else:
-                    st.error(f"❌ Failed to generate questions for: {path['topic']}")
-        
-        st.session_state.generation_in_progress = False
-        
-    except Exception as e:
-        st.error(f"❌ Error generating questions: {e}")
-        st.session_state.generation_in_progress = False
+    st.warning("⚠️ Question generation is temporarily disabled. Please ensure the 'groq' package is properly installed in your Streamlit Cloud environment.")
+    st.info("💡 To fix this: Make sure your requirements.txt file is in the root of your GitHub repository and contains 'groq' as a dependency.")
+    return
 
 def generate_questions_for_topic(groq_client, base_q1, base_q2, path, difficulty):
     """Generate questions for a specific topic"""
@@ -451,39 +416,40 @@ Generate exactly 2 questions for this topic.
 
 def download_word_document(questions_data):
     """Create and download Word document"""
-    try:
-        doc = Document()
-        doc.add_heading('High Score Question Generator - Math Assessment', 0)
-        doc.add_paragraph(f'Generated on: {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}')
-        doc.add_paragraph('')
-        
-        for i, question_data in enumerate(questions_data, 1):
-            doc.add_heading(f'Topic {i}: {question_data["topic"]}', level=1)
-            doc.add_paragraph(f'Subject: {question_data["subject"]}')
-            doc.add_paragraph(f'Unit: {question_data["unit"]}')
-            doc.add_paragraph(f'Difficulty: {question_data["difficulty"]}')
-            doc.add_paragraph('')
-            doc.add_paragraph(question_data['content'])
-            doc.add_paragraph('')
-        
-        # Save document
-        filename = f'high_score_questions_{int(time.time())}.docx'
-        doc.save(filename)
-        
-        # Read file and create download button
-        with open(filename, "rb") as file:
-            btn = st.download_button(
-                label="📥 Click to Download",
-                data=file.read(),
-                file_name=filename,
-                mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-            )
-        
-        # Clean up
-        os.remove(filename)
-        
-    except Exception as e:
-        st.error(f"❌ Error creating Word document: {e}")
+    st.warning("⚠️ Word document download is temporarily disabled for Streamlit Cloud deployment. The app will still generate questions and display them.")
+    # try:
+    #     doc = Document()
+    #     doc.add_heading('High Score Question Generator - Math Assessment', 0)
+    #     doc.add_paragraph(f'Generated on: {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}')
+    #     doc.add_paragraph('')
+    #     
+    #     for i, question_data in enumerate(questions_data, 1):
+    #         doc.add_heading(f'Topic {i}: {question_data["topic"]}', level=1)
+    #         doc.add_paragraph(f'Subject: {question_data["subject"]}')
+    #         doc.add_paragraph(f'Unit: {question_data["unit"]}')
+    #         doc.add_paragraph(f'Difficulty: {question_data["difficulty"]}')
+    #         doc.add_paragraph('')
+    #         doc.add_paragraph(question_data['content'])
+    #         doc.add_paragraph('')
+    #     
+    #     # Save document
+    #     filename = f'high_score_questions_{int(time.time())}.docx'
+    #     doc.save(filename)
+    #     
+    #     # Read file and create download button
+    #     with open(filename, "rb") as file:
+    #         btn = st.download_button(
+    #             label="📥 Click to Download",
+    #             data=file.read(),
+    #             file_name=filename,
+    #             mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+    #         )
+    #     
+    #     # Clean up
+    #     os.remove(filename)
+    #     
+    # except Exception as e:
+    #     st.error(f"❌ Error creating Word document: {e}")
 
 if __name__ == "__main__":
     main()
