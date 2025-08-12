@@ -22,7 +22,7 @@ A Python application that generates math assessment questions using the Groq AI 
 
 2. **Install required dependencies**:
    ```bash
-   pip install -r requirements_streamlit.txt
+   pip install -r requirements.txt
    ```
 
    Or install manually:
