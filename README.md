@@ -22,7 +22,7 @@ A Python application that generates math assessment questions using the Groq AI 
 
 2. **Install required dependencies**:
    ```bash
-   pip install -r requirements.txt
+   pip install -r requirements_streamlit.txt
    ```
 
    Or install manually:
@@ -34,7 +34,7 @@ A Python application that generates math assessment questions using the Groq AI 
 
 1. **Run the application**:
    ```bash
-   python math_question_generator.py
+   streamlit run math_question_generator.py
    ```
 
 2. **Follow the interactive prompts**:
@@ -119,7 +119,7 @@ plusmarks: 1
 ## File Structure
 
 ```
-hugging face/
+High Score/
 ├── math_question_generator.py    # Main application file
 ├── requirements.txt              # Python dependencies
 ├── README.md                     # This file
@@ -127,11 +127,6 @@ hugging face/
 ```
 
 ## Configuration
-
-### API Key
-- The application prompts for your Groq API key at runtime
-- No hardcoded API keys in the source code for security
-- API key is validated before proceeding
 
 ### Model Settings
 - **Model**: Llama3-8b-8192
